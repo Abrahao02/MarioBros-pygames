@@ -151,8 +151,6 @@ obstacle_group = pygame.sprite.Group()
 sky_surface = pygame.image.load('graphics/Sky.png').convert()
 ground_surface = pygame.image.load('graphics/ground.png').convert()
 
-# score_surf = test_font.render('Run game', False, (64,64,64)).convert()
-# score_rect = score_surf.get_rect(center =(400,50))
 
 # goomba
 goomba_frame_0 = pygame.image.load('graphics/goombas_0.png').convert_alpha()
@@ -185,10 +183,10 @@ player_stand = pygame.image.load('graphics/mario/mario1.png').convert_alpha()
 player_stand= pygame.transform.rotozoom(player_stand,0,2)
 player_stand_rect = player_stand.get_rect(center = (400,200))
 
-game_name = test_font.render('Mario Bros' ,False,(64,64,64))
+game_name = test_font.render('Mario Bros' ,False,'White')
 game_name_rect = game_name.get_rect(center = (400,80))
 
-game_message = test_font.render('Press space to run',False,(64,64,64))
+game_message = test_font.render('Press space to run',False,'White')
 game_message_rect = game_message.get_rect(center = (400,300))
 
 # Timer 
@@ -223,10 +221,6 @@ while True:
         if game_active:
             if event.type == obstacle_timer: 
                 obstacle_group.add(Obstacle(choice(['koopa','goomba', 'goomba', 'goomba'])))
-                # if randint(0,2):
-                #     obstacle_rect_list.append(goomba_surf.get_rect(bottomright = (randint(900,1100),300)))      
-                # else:
-                #     obstacle_rect_list.append(koopa_surf.get_rect(bottomright = (randint(900,1100),301)))  
                       
             if event.type == goomba_animation_time:
                 if goomba_frames_index == 0: goomba_frames_index = 1
@@ -238,8 +232,6 @@ while True:
                 else: koopa_frame_index = 0
                 koopa_surf = koopa_frame[koopa_frame_index]      
                     
-                
-
     if game_active:
         screen.blit(sky_surface,(0,0))    
         screen.blit(ground_surface,(0,300)) 
@@ -249,29 +241,14 @@ while True:
         # screen.blit(score_surf,score_rect) 
         score = display_score()
 
-        # Goomba moviment
-        # goomba_rect.x -= 4
-        # if goomba_rect.right <= 0: goomba_rect.left = 800
-        # screen.blit(goomba_surf,goomba_rect)  
-
-        # Player
-        # player_gravity += 1
-        # player_rect.y += player_gravity
-        # if player_rect.bottom >= 300: player_rect.bottom = 300
-        # player_animation()
-        # screen.blit(player_surf,player_rect)
         player.draw(screen)
         player.update()
         
         obstacle_group.draw(screen)
         obstacle_group.update()
 
-        # Obstacle movement
-        #obstacle_rect_list = obstacle_movement(obstacle_rect_list)
-
         # Collision
         game_active = collisions_sprite()
-        #game_active = collisions(player_rect,obstacle_rect_list)
 
     else:
         screen.fill((94,129,162))
@@ -280,7 +257,7 @@ while True:
         player_rect.midbottom = (80,300)
         player_gravity = 0
         
-        score_message = test_font.render(f'Your score: {score}',False,(64,64,64))
+        score_message = test_font.render(f'Your score: {score}',False,'White')
         score_message_rect = score_message.get_rect(center = (400,330))
         screen.blit(game_name,game_name_rect)
         
